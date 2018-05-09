@@ -1,6 +1,6 @@
-import Layout from '../../components/layout';
+import Layout from '@root/components/layout';
 import { func } from 'prop-types';
-import { withI18next } from '../../lib/withI18next';
+import { withI18next } from '@root/lib/withI18next';
 
 const Home = ({ t }) => (
   <Layout title="Home" className="home-page">

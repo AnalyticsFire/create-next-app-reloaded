@@ -1,7 +1,7 @@
 import Head from './head';
 import { any, string } from 'prop-types';
 
-import '../../styles/main.scss';
+import '@root/styles/main.scss';
 
 const Layout = props => (
   <main className={props.className || ''}>
