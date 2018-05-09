@@ -1,5 +1,12 @@
+// Proyect variables and Mixins
 @import 'variables';
 @import 'mixins';
 
+// Bootstrap Reset, Grid & Utilities
+@import 'vendors/bootstrap-4.0.0-beta.2/bootstrap-reboot';
+@import 'vendors/bootstrap-4.0.0-beta.2/bootstrap-grid';
+@import 'vendors/bootstrap-4.0.0-beta.2/bootstrap-utilities';
+
+// Components
 @import '../pages/home/home.scss';
 @import '../pages/about/about.scss';
