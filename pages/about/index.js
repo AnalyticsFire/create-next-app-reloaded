@@ -1,3 +1,4 @@
-import About from './about';
+import Component, { About } from './about';
 
-export default About;
+export { About };
+export default Component;

@@ -1,3 +1,4 @@
 {
-  "title": "Home Page"
+  "pageTitle": "Home Page",
+  "title": "Welcome to my new page made with NextJs"
 }

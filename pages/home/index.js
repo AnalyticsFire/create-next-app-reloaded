@@ -1,3 +1,4 @@
-import Home from './home';
+import Component, { Home } from './home';
 
-export default Home;
+export { Home };
+export default Component;
