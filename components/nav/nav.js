@@ -11,6 +11,7 @@ export class Nav extends Component {
       show: false,
     };
   }
+
   render() {
     const { t } = this.props;
     return (
