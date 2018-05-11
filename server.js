@@ -19,7 +19,7 @@ i18nInstance
     {
       fallbackLng: 'en',
       preload: ['en'], // preload all langages
-      ns: ['common', 'home'], // need to preload all the namespaces
+      ns: ['common', 'home', 'about'], // need to preload all the namespaces
       backend: {
         loadPath: path.join(__dirname, '/static/locales/{{lng}}/{{ns}}.json'),
         addPath: path.join(
