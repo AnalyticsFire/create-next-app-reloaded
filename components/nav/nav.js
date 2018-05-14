@@ -46,6 +46,13 @@ export class Nav extends Component {
               >
                 {t('common:nav.about')}
               </NavLink>
+              <NavLink
+                href="/redux-example"
+                className="nav-item"
+                linkClassName="nav-link"
+              >
+                {t('common:nav.redux')}
+              </NavLink>
             </ul>
           </div>
         </nav>
