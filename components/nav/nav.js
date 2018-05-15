@@ -11,6 +11,7 @@ export class Nav extends Component {
       show: false,
     };
   }
+
   render() {
     const { t } = this.props;
     return (
@@ -44,6 +45,13 @@ export class Nav extends Component {
                 linkClassName="nav-link"
               >
                 {t('common:nav.about')}
+              </NavLink>
+              <NavLink
+                href="/redux-example"
+                className="nav-item"
+                linkClassName="nav-link"
+              >
+                {t('common:nav.redux')}
               </NavLink>
             </ul>
           </div>

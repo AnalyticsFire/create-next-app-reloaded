@@ -11,7 +11,9 @@ module.exports = withSass({
     // Added aliases
     config.resolve.alias = {
       '@root': path.join(__dirname),
+      config: path.resolve(__dirname, 'lib/config.shim'),
     };
+
     return config;
   },
 });
