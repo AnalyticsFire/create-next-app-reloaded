@@ -1,34 +1,62 @@
 import React, { Component } from 'react';
-import Layout from '@root/components/layout';
-import { func, string } from 'prop-types';
-import { connect } from 'react-redux';
+import { array, func } from 'prop-types';
 import { withI18next } from '@root/lib/withI18next';
+import Layout from '@root/components/layout';
+import CharacterInfo from '@root/components/characterInfo';
+import { connect } from 'react-redux';
+import { rootEpic } from '@root/redux/epics';
+import * as actions from '@root/redux/actions';
+import { of } from 'rxjs/observable/of';
 
 export class ReduxExample extends Component {
-  static getInitialProps({ store, isServer, pathname, query }) {
-    store.dispatch({ type: 'FOO', payload: 'abcde' }); // component will be able to read from store's state when rendered
-    return { custom: 'custom value' }; // you can pass some custom props to component from here
+  static async getInitialProps({ store, isServer }) {
+    const resultAction = await rootEpic(
+      of(actions.fetchCharacter(isServer)),
+      store
+    ).toPromise(); // we need to convert Observable to Promise
+    store.dispatch(resultAction);
+
+    return { isServer };
   }
+
+  componentDidMount() {
+    this.props.startFetchingCharacters();
+  }
+
+  componentWillUnmount() {
+    this.props.stopFetchingCharacters();
+  }
+
   render() {
     return (
       <Layout title="Redux Example" className="redux-page">
         <div className="container pt-4 pb-4">
-          <div>Prop from Redux {this.props.foo}</div>
-          <div>Prop from getInitialProps {this.props.custom}</div>
+          <h1 className="title text-center pb-3">Star Wars Characters!</h1>
+          <section className="row">
+            {this.props.characters.map((character, key) => (
+              <article key={key} className="col-3 mb-3">
+                <CharacterInfo character={character} />
+              </article>
+            ))}
+          </section>
         </div>
       </Layout>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  foo: state.foo,
-});
-
 ReduxExample.propTypes = {
-  t: func,
-  foo: string,
-  custom: string,
+  characters: array,
+  startFetchingCharacters: func,
+  stopFetchingCharacters: func,
 };
 
-export default withI18next(['common'])(connect(mapStateToProps)(ReduxExample));
+export default connect(
+  state => ({
+    characters: state.characters,
+  }),
+  {
+    startFetchingCharacters: actions.startFetchingCharacters,
+    stopFetchingCharacters: actions.stopFetchingCharacters,
+  }
+)(withI18next(['common'])(ReduxExample));
