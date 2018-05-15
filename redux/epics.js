@@ -5,41 +5,40 @@ import { combineEpics, ofType } from 'redux-observable';
 import ajax from 'universal-rx-request'; // because standard AjaxObservable only works in browser
 
 import * as actions from './actions';
-import * as types from './actionTypes';
 
 export const fetchUserEpic = (action$, store) =>
   action$.pipe(
-    ofType(types.START_FETCHING_CHARACTERS),
+    ofType(actions.startFetchingCharacters.getType()),
     mergeMap(action => {
       return interval(3000).pipe(
         mergeMap(x =>
           of(
-            actions.fetchCharacter({
+            actions.fetchCharacters({
               isServer: store.getState().isServer,
             })
           )
         ),
-        takeUntil(action$.ofType(types.STOP_FETCHING_CHARACTERS))
+        takeUntil(action$.ofType(actions.stopFetchingCharacters.getType()))
       );
     })
   );
 
-export const fetchCharacterEpic = (action$, store) =>
+export const fetchCharactersEpic = (action$, store) =>
   action$.pipe(
-    ofType(types.FETCH_CHARACTER),
+    ofType(actions.fetchCharacters.getType()),
     mergeMap(action =>
       ajax({
         url: `https://swapi.co/api/people/${store.getState().nextCharacterId}`,
       }).pipe(
         map(response =>
-          actions.fetchCharacterSuccess(
-            response.body,
-            store.getState().isServer
-          )
+          actions.fetchCharactersSuccess({
+            response: response.body,
+            isServer: store.getState().isServer,
+          })
         ),
         catchError(_error => of(actions.stopFetchingCharacters()))
       )
     )
   );
 
-export const rootEpic = combineEpics(fetchUserEpic, fetchCharacterEpic);
+export const rootEpic = combineEpics(fetchUserEpic, fetchCharactersEpic);
