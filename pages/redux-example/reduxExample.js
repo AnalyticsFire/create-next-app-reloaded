@@ -34,7 +34,7 @@ export class ReduxExample extends Component {
           <h1 className="title text-center pb-3">Star Wars Characters!</h1>
           <section className="row">
             {this.props.characters.map((character, key) => (
-              <article key={key} className="col-3 mb-3">
+              <article key={key} className="col-12 col-md-6 col-lg-3 mb-3">
                 <CharacterInfo character={character} />
               </article>
             ))}
