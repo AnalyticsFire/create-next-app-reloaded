@@ -11,7 +11,7 @@ import { of } from 'rxjs/observable/of';
 export class ReduxExample extends Component {
   static async getInitialProps({ store, isServer }) {
     const resultAction = await rootEpic(
-      of(actions.fetchCharacter(isServer)),
+      of(actions.fetchCharacters(isServer)),
       store
     ).toPromise(); // we need to convert Observable to Promise
     store.dispatch(resultAction);

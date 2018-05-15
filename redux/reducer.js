@@ -1,21 +1,18 @@
-import * as types from './actionTypes';
+import { createReducer } from 'redux-act';
+import * as actions from './actions';
 
-const INITIAL_STATE = {
-  nextCharacterId: 1,
-  characters: [],
-  isFetchedOnServer: false,
-};
-
-export default (state = INITIAL_STATE, { type, payload }) => {
-  switch (type) {
-    case types.FETCH_CHARACTER_SUCCESS:
-      return {
-        ...state,
-        characters: [...state.characters, payload.response],
-        isFetchedOnServer: payload.isServer,
-        nextCharacterId: state.nextCharacterId + 1,
-      };
-    default:
-      return state;
+export default createReducer(
+  {
+    [actions.fetchCharactersSuccess]: (state, payload) => ({
+      ...state,
+      characters: [...state.characters, payload.response],
+      isFetchedOnServer: payload.isServer,
+      nextCharacterId: state.nextCharacterId + 1,
+    }),
+  },
+  {
+    nextCharacterId: 1,
+    characters: [],
+    isFetchedOnServer: false,
   }
-};
+);
