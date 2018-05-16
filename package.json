@@ -1,7 +1,6 @@
 {
   "name": "create-next-example-app",
-  "author": "Damian Aruj",
-  "email": "damian@analyticsfire.com",
+  "author": "Damian Aruj <damian@analyticsfire.com> (https://github.com/daruj)",
   "scripts": {
     "dev": "node server.js",
     "build": "npm run test && next build",
